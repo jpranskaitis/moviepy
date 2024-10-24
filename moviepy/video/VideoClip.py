@@ -25,6 +25,7 @@ from .io.ffmpeg_writer import ffmpeg_write_video
 from .io.gif_writers import (write_gif, write_gif_with_image_io,
                              write_gif_with_tempfiles)
 from .tools.drawing import blit
+from .tools.drawing import blit_gpu
 
 
 class VideoClip(Clip):
@@ -561,7 +562,7 @@ class VideoClip(Clip):
 
         pos = map(int, pos)
 
-        return blit(img, picture, pos, mask=mask, ismask=self.ismask)
+        return blit_gpu(img, picture, pos, mask=mask, ismask=self.ismask)
 
     def add_mask(self):
         """Add a mask VideoClip to the VideoClip.
