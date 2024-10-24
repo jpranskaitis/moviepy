@@ -79,6 +79,7 @@ class FFMPEG_VideoWriter:
         # order is important
         cmd = [
             get_setting("FFMPEG_BINARY"),
+            # '-hwaccel', 'cuda',
             '-y',
             '-loglevel', 'error' if logfile == sp.PIPE else 'info',
             '-f', 'rawvideo',
@@ -239,7 +240,9 @@ def ffmpeg_write_image(filename, image, logfile=False):
     if image.dtype != 'uint8':
           image = image.astype("uint8")
 
-    cmd = [ get_setting("FFMPEG_BINARY"), '-y',
+    cmd = [ get_setting("FFMPEG_BINARY"), 
+        #    '-hwaccel', 'cuda',
+           '-y',
            '-s', "%dx%d"%(image.shape[:2][::-1]),
            "-f", 'rawvideo',
            '-pix_fmt', "rgba" if (image.shape[2] == 4) else "rgb24",
