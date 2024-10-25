@@ -70,7 +70,8 @@ requires = [
     "numpy>=1.17.3; python_version!='2.7'",
     "numpy; python_version>='2.7'",
     'requests>=2.8.1,<3.0',
-    'proglog<=1.0.0'
+    'proglog<=1.0.0',
+    'python-dotenv'
     ]
 
 optional_reqs = [

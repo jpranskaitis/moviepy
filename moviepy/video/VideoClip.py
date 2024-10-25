@@ -26,7 +26,7 @@ from .io.gif_writers import (write_gif, write_gif_with_image_io,
                              write_gif_with_tempfiles)
 from .tools.drawing import blit
 from .tools.drawing import blit_gpu
-
+from dotenv import load_dotenv
 
 class VideoClip(Clip):
     """Base class for video clips.
@@ -562,7 +562,12 @@ class VideoClip(Clip):
 
         pos = map(int, pos)
 
-        return blit_gpu(img, picture, pos, mask=mask, ismask=self.ismask)
+        DEVICE = os.getenv('MOVIEPY_BLIT_DEVICE', 'cpu')
+
+        if DEVICE == 'cuda':
+            return blit_gpu(img, picture, pos, mask=mask, ismask=self.ismask)
+        else:
+            return blit(img, picture, pos, mask=mask, ismask=self.ismask)
 
     def add_mask(self):
         """Add a mask VideoClip to the VideoClip.
